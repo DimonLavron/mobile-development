@@ -1,15 +1,29 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, ActivityIndicator } from "react-native";
+import { CommonActions } from "@react-navigation/native";
 import firebase from "../firebase";
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
+    const [loading, setLoading] = useState(false);
+
     const handleSignOut = () => {
+        setLoading(true);
         firebase
             .auth()
             .signOut()
-            .then()
+            .then(() => {
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [
+                            {name: "Sign In"},
+                        ],
+                    })
+                )
+            })
             .catch((error) => {
                 alert(error);
+                setLoading(false);
             })
     }
 
@@ -17,11 +31,17 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Hello, {userName}</Text>
-            <Button
-                title='Sign out'
-                onPress={handleSignOut}
-            />
+            {loading ? (
+                <ActivityIndicator />
+            ) : (
+                <View style={styles.container}>
+                    <Text style={styles.text}>Hello, {userName}</Text>
+                    <Button
+                        title='Sign out'
+                        onPress={handleSignOut}
+                    />
+                </View>
+            )}
         </View>
     )
 }

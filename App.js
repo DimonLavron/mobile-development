@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import MainStack from './src/navigation';
+import NavigationStack from './src/navigation';
 
 export default function App() {
   return (
-    <MainStack />
+    <NavigationStack />
   );
 }
 

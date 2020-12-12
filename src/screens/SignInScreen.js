@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Text, View, StyleSheet, TextInput, Button, Alert, TouchableOpacity, ActivityIndicator } from "react-native";
+import { CommonActions } from "@react-navigation/native";
 import firebase from '../firebase';
 
 const SignInScreen = ({navigation}) => {
@@ -51,7 +52,14 @@ const SignInScreen = ({navigation}) => {
                 .auth()
                 .signInWithEmailAndPassword(emailValue, passwordValue)
                 .then(() => {
-                    setLoading(false);
+                    navigation.dispatch(
+                        CommonActions.reset({
+                            index: 0,
+                            routes: [
+                                {name: "Home"},
+                            ],
+                        })
+                    )
                 })
                 .catch((error) => {
                     alert(error);

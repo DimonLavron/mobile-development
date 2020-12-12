@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Text, View, StyleSheet, TextInput, Button, Alert, TouchableOpacity, ActivityIndicator } from "react-native";
+import { CommonActions } from "@react-navigation/native";
 import firebase from "../firebase"
 
 const SignUpScreen = ({navigation}) => {
@@ -88,7 +89,16 @@ const SignUpScreen = ({navigation}) => {
                         displayName: nameValue,
                         phoneNumber: phoneValue
                     })
-                    setLoading(false);
+                    .then(() => {
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [
+                                    {name: "Home"},
+                                ],
+                            })
+                        )
+                    })
                 })
                 .catch((error) => {
                     alert(error);
