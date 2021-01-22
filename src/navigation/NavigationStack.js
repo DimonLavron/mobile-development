@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, SignInScreen, SignUpScreen } from "../screens";
+import { AddEntityScreen, EditEntityScreen, HomeScreen, SignInScreen, SignUpScreen, CalculateInvoiceScreen } from "../screens";
 import firebase from "../firebase";
 import { StyleSheet } from "react-native";
 
@@ -17,6 +17,9 @@ const NavigationStack = () => {
                 <Stack.Screen name='Sign In' component={SignInScreen} />
                 <Stack.Screen name='Sign Up' component={SignUpScreen} />
                 <Stack.Screen name='Home' component={HomeScreen} />
+                <Stack.Screen name='Add New Entity' component={AddEntityScreen} />
+                <Stack.Screen name='Edit Entity' component={EditEntityScreen} />
+                <Stack.Screen name='Calculate Invoice' component={CalculateInvoiceScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
